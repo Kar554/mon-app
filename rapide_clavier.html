@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapide Clavier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #display {
+      font-size: 32px;
+      margin: 20px 0;
+    }
+    #message {
+      color: red;
+      font-size: 24px;
+      display: none;
+    }
+    #zone {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 20px 0;
+      padding: 10px;
+      border: 2px dashed #444;
+      display: inline-block;
+      max-width: 600px;
+    }
+    input {
+      font-size: 22px;
+      padding: 5px;
+      width: 60%;
+    }
+    #dashboard {
+      margin-top: 30px;
+      padding: 15px;
+      border: 2px solid #333;
+      display: inline-block;
+    }
+    select {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>⏱️ Jeu de vitesse au clavier</h1>
+  
+  <label>Mode : 
+    <select id="mode">
+      <option value="mots">Mots</option>
+      <option value="phrases">Phrases</option>
+      <option value="texte">Texte</option>
+    </select>
+  </label>
+
+  <p id="display">00:00</p>
+  <span id="message">⏰ Temps écoulé !</span>
+  
+  <div id="zone">---</div><br>
+  <input type="text" id="input" placeholder="Tapez ici..." autofocus />
+
+  <div id="dashboard">
+    <p>⭐ Score : <span id="score">0</span></p>
+    <p>🔥 Objectif du jour : <span id="objectif">30</span></p>
+    <p>📊 Meilleur score : <span id="best">0</span></p>
+  </div>
+
+  <script>
+    // ⚡ Liste de 350 mots uniques (exemple tronqué ici mais tu peux en mettre autant que tu veux)
+    const motsUniques = [
+      "chat","chien","soleil","maison","fleur","ordinateur","courage","arbre","voiture","pomme","livre","musique","espoir","école","bouteille","lampe",
+      "téléphone","fenêtre","amitié","mer","plage","montagne","rêve","nuage","pluie","neige","forêt","chemin","parfum","porte","chaise","table","sourire",
+      "joie","bonheur","amour","paix","force","travail","sport","vélo","football","danse","chanson","jeu","clavier","souris","ciel","ville","village",
+      // ... ajoute jusqu’à 350 mots différents
+    ];
+
+    // Générateur de phrases
+    function genererPhrase(nbMots=6) {
+      let phrase = [];
+      for (let i=0; i<nbMots; i++) {
+        let mot = motsDisponibles.splice(Math.floor(Math.random()*motsDisponibles.length), 1)[0];
+        phrase.push(mot);
+      }
+      return phrase.join(" ") + ".";
+    }
+
+    // Générateur de texte (plusieurs phrases)
+    function genererTexte(nbPhrases=4) {
+      let texte = [];
+      for (let i=0; i<nbPhrases; i++) {
+        texte.push(genererPhrase(8));
+      }
+      return texte.join(" ");
+    }
+
+    let motsDisponibles = [...motsUniques]; // copie pour ne pas répéter
+    let motActuel = "";
+    let score = 0;
+    let best = localStorage.getItem("bestScore") || 0;
+    let mode = "mots";
+
+    // Chrono
+    const p = document.getElementById("display");
+    const message = document.getElementById("message");
+    let s = 0, ms = 0, run = false, time;
+
+    function displayTime() {
+      p.textContent = (s < 10 ? "0" + s : s) + ":" + (ms < 10 ? "0" + ms : ms);
+    }
+
+    function startTimer() {
+      if (!run) {
+        run = true;
+        time = setInterval(() => {
+          ms++;
+          if (ms == 100) {
+            ms = 0;
+            s++;
+          }
+          if (s == 60) { // jeu dure 1 min
+            stopTimer();
+            gameOver();
+          }
+          displayTime();
+        }, 10);
+      }
+    }
+
+    function stopTimer() {
+      run = false;
+      clearInterval(time);
+    }
+
+    // Gestion des zones à taper
+    function nouvelleTache() {
+      if (motsDisponibles.length === 0) motsDisponibles = [...motsUniques]; // reset si épuisés
+
+      if (mode === "mots") {
+        motActuel = motsDisponibles.splice(Math.floor(Math.random()*motsDisponibles.length), 1)[0];
+      } else if (mode === "phrases") {
+        motActuel = genererPhrase();
+      } else if (mode === "texte") {
+        motActuel = genererTexte();
+      }
+      document.getElementById("zone").textContent = motActuel;
+      document.getElementById("input").value = "";
+    }
+
+    const input = document.getElementById("input");
+    input.addEventListener("input", () => {
+      startTimer();
+      if (input.value.trim() === motActuel) {
+        score++;
+        document.getElementById("score").textContent = score;
+        nouvelleTache();
+      }
+    });
+
+    function gameOver() {
+      message.style.display = "block";
+      input.disabled = true;
+      if (score > best) {
+        best = score;
+        localStorage.setItem("bestScore", best);
+      }
+      document.getElementById("best").textContent = best;
+    }
+
+    // Initialisation
+    document.getElementById("best").textContent = best;
+    document.getElementById("mode").addEventListener("change", e => {
+      mode = e.target.value;
+      nouvelleTache();
+    });
+    nouvelleTache();
+  </script>
+</body>
+</html>

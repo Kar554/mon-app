@@ -1,0 +1,97 @@
+[
+  {
+    "id": "salut",
+    "triggers": ["salut", "bonjour", "bjr", "cc", "slt", "hello", "yo"],
+    "reply": ["Salut ! Je suis ton bot 🤖", "Bonjour ! Comment puis-je t’aider ? 😊"],
+    "tags": ["greeting"]
+  },
+  {
+    "id": "comment_ca_va",
+    "triggers": ["comment ca va", "ca va", "cv", "tu vas bien"],
+    "reply": ["Ça va super ! Et toi ?", "Au top, merci ! Et toi ? 😄"]
+  },
+  {
+    "id": "aide",
+    "triggers": ["aide", "help", "menu", "que peux tu faire", "tu fais quoi"],
+    "action": "help",
+    "suggest": "aide"
+  },
+  {
+    "id": "heure",
+    "triggers": ["quelle heure", "il est quelle heure", "heure", "donne l heure"],
+    "action": "time",
+    "suggest": "heure"
+  },
+  {
+    "id": "date",
+    "triggers": ["quelle date", "on est quel jour", "date", "nous sommes quel jour"],
+    "action": "date",
+    "suggest": "date"
+  },
+  {
+    "id": "blague",
+    "triggers": ["blague", "raconte une blague", "fait moi rire", "joke"],
+    "action": "joke",
+    "suggest": "blague"
+  },
+  {
+    "id": "horaires",
+    "triggers": ["horaires", "heure d ouverture", "vous etes ouverts quand", "heures ouverture", "ouverte aujourd hui"],
+    "reply": "Nos horaires: Lun–Ven 9h–18h, Sam 10h–16h. Fermé dimanches et jours fériés."
+  },
+  {
+    "id": "adresse",
+    "triggers": ["adresse", "ou etes vous", "localisation", "localiser magasin"],
+    "reply": "Nous sommes au 10 Rue de l’Exemple, 75000 Paris. À 3 min du métro Exemple 🚇"
+  },
+  {
+    "id": "contact",
+    "triggers": ["contact", "numero", "telephone", "email", "mail"],
+    "reply": "Tu peux nous joindre au 01 23 45 67 89 ou par email: contact@exemple.fr"
+  },
+  {
+    "id": "prix",
+    "triggers": ["prix", "tarif", "combien ca coute", "cb ca coute", "combien"],
+    "reply": "Les prix varient selon le produit. Dis-moi ce que tu cherches et je te donne le tarif 😉"
+  },
+  {
+    "id": "livraison",
+    "triggers": ["livraison", "delai livraison", "frais de port", "liv", "livre en combien de temps"],
+    "reply": "Livraison sous 2–4 jours ouvrés en France. Offerte dès 50€ d’achat 🚚"
+  },
+  {
+    "id": "retours",
+    "triggers": ["retour", "retours", "echanges", "remboursement", "remb", "retourner article"],
+    "reply": "Retours sous 30 jours, gratuits si l’article est défectueux. Sinon, renvoi à ta charge. On t’accompagne pas à pas si besoin."
+  },
+  {
+    "id": "suivi_commande",
+    "triggers": ["suivre commande", "suivi", "tracking", "ou est ma commande", "ou en est ma commande"],
+    "reply": "Envoie-moi ton numéro de commande (ex: CMD12345) et je regarde ça pour toi 👀"
+  },
+  {
+    "id": "paiement",
+    "triggers": ["paiement", "payer", "moyens de paiement", "paypal", "cb", "carte bancaire"],
+    "reply": "Nous acceptons CB, Visa, Mastercard, PayPal et Apple Pay."
+  },
+  {
+    "id": "remerciements",
+    "triggers": ["merci", "thx", "merciii", "merci beaucoup"],
+    "reply": ["Avec plaisir ! 🙌", "De rien !", "Toujours là pour t’aider 😄"]
+  },
+  {
+    "id": "au_revoir",
+    "triggers": ["au revoir", "a plus", "a+", "a la prochaine", "bye"],
+    "reply": ["À bientôt ! 👋", "Bonne journée !"]
+  },
+  {
+    "id": "qui_es_tu",
+    "triggers": ["qui es tu", "tu es qui", "c est quoi ce bot", "present toi"],
+    "reply": "Je suis un assistant WhatsApp. Pose-moi tes questions, je réponds instantanément 🤖"
+  },
+  {
+    "id": "recette_pates",
+    "triggers": ["recette", "recette pates", "cuisiner pates", "pates sauce tomate"],
+    "reply": "Recette express: fais cuire des pâtes al dente, sauce tomate, ail, huile d’olive, basilic. Parmesan en option 🍝"
+  }
+]
